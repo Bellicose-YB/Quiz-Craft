@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Email Confirmation | Quiz Craft</title>
+</head>
+<body style="background-color: #282c34;">
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #20232a;">
+        <div class="container-fluid">
+            <a class="navbar-brand" style="color: #ffffff;" href="#">Quiz Craft</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            </div>
+            
+            <button type="button" class="btn btn-dark" style="margin-right: 5px;" onclick="location.href='{% url "signin" %}'">Sign In</button>
+            
+            <button type="button" class="btn btn-dark" style="margin-left: 5px;"  onclick="location.href='{% url "signup" %}'">Sign Up</button>
+        </div>
+    </nav>
+    <!-- navbar end -->
+    <div style="background-color: #20232a;">
+        <h1 class="display-2" style="color: #61dafb; padding : 1% 0% 1% 0%;  padding-left:10%">Reset Password</h1>
+    </div>
+    <div class="container p-5" style="color: white;">
+        <h2 class="font-weight-bold mt-3">Password reset sent</h2>
+          <hr>
+          <p>We've emailed you instructions for setting your password, if an account exists with the email you entered. You should receive them shortly.<br>If you don't receive an email, please make sure you've entered the address you registered with, and check your spam folder.</p>
+    </div>
+</body>
+</html>
