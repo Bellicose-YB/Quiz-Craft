@@ -23,3 +23,5 @@ class SignInForm(AuthenticationForm):
     class Meta:
         model = User
         fields = ('username','password', )
+
+# class Password
