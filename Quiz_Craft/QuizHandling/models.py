@@ -6,8 +6,8 @@ from django.contrib.auth.models import User
 class Quiz(models.Model):
     Author = models.ForeignKey(User, on_delete=models.CASCADE)
     QuizTitle = models.CharField(max_length=100)
-    time = models.DurationField(help_text="Duration of the Quizin format HH:MM:SS")
-    score = models.IntegerField(help_text="Total score of the Quiz")
+    Time = models.DurationField(help_text="Duration of the Quizin format HH:MM:SS")
+    Score = models.IntegerField(help_text="Total score of the Quiz")
     # created = models.DateTimeField(auto_now_add=True)
 
 
@@ -15,17 +15,17 @@ class Quiz(models.Model):
         return f"{self.QuizTitle}"
     
     def getQuestions(self):
-        return self.Questions_set.all()
+        return self.Q.all()
 
 class Questions(models.Model):
     AuthorKey = models.ForeignKey(User, on_delete=models.CASCADE)
-    QuizKey = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    QuizKey = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name="Q")
     Score = models.IntegerField(help_text="Score of this question", default=4)
     Statement = models.TextField()
-    CorrectOption = models.TextField()     
-    OtherOption1 = models.TextField()     
-    OtherOption2 = models.TextField()     
-    OtherOption3 = models.TextField()     
+    CorrectOption = models.CharField(max_length=1000)
+    OtherOption1 = models.CharField(max_length=1000)
+    OtherOption2 = models.CharField(max_length=1000)
+    OtherOption3 = models.CharField(max_length=1000)
     
     def __str__(self):
         return f"{self.QuizKey.QuizTitle}"

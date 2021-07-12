@@ -3,12 +3,20 @@ from .models import Quiz, Questions
 
 
 class QuizStarterForm(forms.ModelForm):
-    score = forms.IntegerField(min_value=1, max_value=10000, required=False)
+    QuizTitle = forms.CharField(max_length=30, required=True, widget=forms.TextInput(attrs={'class' : "form-control", 'placeholder': 'Title of Quiz'}))
+    Time = forms.DurationField(required=True, widget=forms.TextInput(attrs={'class' : "form-control", 'placeholder': 'Duration in format HH:MM:SS'}))
+    Score = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'class' : "form-control", 'placeholder': 'Total score of Quiz(Optional)'}))
     class Meta:
         model = Quiz
-        fields = ('QuizTitle', 'time', 'score')
+        fields = ('QuizTitle', 'Time', 'Score')
 
 class QuestionCreationForm(forms.ModelForm):
+    Score = forms.IntegerField(required=True, widget=forms.TextInput(attrs={'class' : "form-control", 'placeholder': 'Score of this question'}))
+    Statement = forms.CharField(required=True, widget=forms.Textarea(attrs={'class' : "form-control", 'placeholder': 'Stament of Question'}))
+    CorrectOption = forms.CharField(max_length=1000, required=True, widget=forms.TextInput(attrs={'class' : "form-control"}))
+    OtherOption1 = forms.CharField(max_length=1000, required=True, widget=forms.TextInput(attrs={'class' : "form-control"}))
+    OtherOption2 = forms.CharField(max_length=1000, required=True, widget=forms.TextInput(attrs={'class' : "form-control"}))
+    OtherOption3 = forms.CharField(max_length=1000, required=True, widget=forms.TextInput(attrs={'class' : "form-control"}))
     class Meta:
         model = Questions
-        fields = '__all__'
+        fields = ('Statement','Score', 'CorrectOption', 'OtherOption1', 'OtherOption2', 'OtherOption3' )
