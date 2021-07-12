@@ -1,5 +1,5 @@
 from django import forms
-from .models import Quiz, Questions
+from .models import Quiz, Questions, Student
 
 
 class QuizStarterForm(forms.ModelForm):
@@ -19,4 +19,9 @@ class QuestionCreationForm(forms.ModelForm):
     OtherOption3 = forms.CharField(max_length=1000, required=True, widget=forms.TextInput(attrs={'class' : "form-control"}))
     class Meta:
         model = Questions
-        fields = ('Statement','Score', 'CorrectOption', 'OtherOption1', 'OtherOption2', 'OtherOption3' )
+        fields = ('Statement','Score', 'CorrectOption', 'OtherOption1', 'OtherOption2', 'OtherOption3')
+
+class StudentForm(forms.ModelForm):
+    class Meta:
+        model = Student
+        fields = ('student_name', 'student_email')
