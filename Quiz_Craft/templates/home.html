@@ -53,15 +53,12 @@
                         <form method="POST" action="{% url 'home' %}">
                             {% csrf_token %}
                             {{ form }}
-                            <button type="submit">Submit</button>
+                            <hr>
+                            <button type="submit" class="btn" style="color: #61dafb;background-color: #282c34">Submit</button>
                         </form>
                     {% else %}
-                        <h1>First Login krle MC</h1>
-                        <button type="button" onclick="location.href='{% url "signin" %}">Submit</button>
+                        <h1>Login to create awesome Quiz</h1>
                     {% endif %}
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
               </div>
             </div>
