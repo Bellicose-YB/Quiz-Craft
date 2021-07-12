@@ -7,7 +7,7 @@ class Quiz(models.Model):
     Author = models.ForeignKey(User, on_delete=models.CASCADE)
     QuizTitle = models.CharField(max_length=100)
     time = models.DurationField(help_text="Duration of the Quizin format HH:MM:SS")
-    score = models.IntegerField(help_text="Total score of the Quiz", blank = True)
+    score = models.IntegerField(help_text="Total score of the Quiz")
     # created = models.DateTimeField(auto_now_add=True)
 
 
