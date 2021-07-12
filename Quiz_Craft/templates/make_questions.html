@@ -43,7 +43,7 @@
                 {% csrf_token %}
                 {{ form }}
                 <hr>
-                <button type="submit" class="btn" style="color: #61dafb;background-color:#20232a">Submit</button>
+                <button type="submit" class="btn" style="color: #61dafb;background-color:#20232a">Add</button>
             </form>
         </div>
     </div>
@@ -56,20 +56,31 @@
                     <span>{{question.Statement}}</span>
                     <!-- 2 column grid layout with text inputs for the first and last names -->
                     <div class="checkbox disabled">
-                        <label><input type="checkbox" value="" disabled checked>{{question.CorrectOption}}</label>
+                        <label><input type="checkbox" value="" disabled checked> {{question.CorrectOption}}</label>
                     </div>
                     <div class="checkbox disabled">
-                        <label><input type="checkbox" value="" disabled>{{question.OtherOption1}}</label>
+                        <label><input type="checkbox" value="" disabled> {{question.OtherOption1}}</label>
                     </div>
                     <div class="checkbox disabled">
-                        <label><input type="checkbox" value="" disabled>{{question.OtherOption2}}</label>
+                        <label><input type="checkbox" value="" disabled> {{question.OtherOption2}}</label>
                     </div>
                     <div class="checkbox disabled">
-                        <label><input type="checkbox" value="" disabled>{{question.OtherOption3}}</label>
+                        <label><input type="checkbox" value="" disabled> {{question.OtherOption3}}</label>
                     </div>
                 </div>
             </div>
         </div>
     {% endfor %}
+    <h1>Link to share</h1>
+    <input type="text" value="{{ link }}" id="myInput">
+    <button onclick="myFunction()">Copy text</button>
+    <script>
+        function myFunction() {
+            var copyText = document.getElementById("myInput");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+        }
+    </script>
 </body>
 </html>
