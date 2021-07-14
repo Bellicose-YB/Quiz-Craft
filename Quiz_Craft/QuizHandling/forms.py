@@ -4,8 +4,8 @@ from .models import Quiz, Questions, Student
 
 class QuizStarterForm(forms.ModelForm):
     QuizTitle = forms.CharField(max_length=30, required=True, widget=forms.TextInput(attrs={'class' : "form-control", 'placeholder': 'Title of Quiz'}))
-    Time = forms.DurationField(required=True, widget=forms.TextInput(attrs={'class' : "form-control", 'placeholder': 'Duration in format HH:MM:SS'}))
-    Score = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'class' : "form-control", 'placeholder': 'Total score of Quiz(Optional)'}))
+    Time = forms.IntegerField(required=True, widget=forms.TextInput(attrs={'class' : "form-control", 'placeholder': 'Duration in minutes'}))
+    Score = forms.IntegerField(required=False, widget=forms.TextInput(attrs={'class' : "form-control", 'placeholder': 'Total score of Quiz'}))
     class Meta:
         model = Quiz
         fields = ('QuizTitle', 'Time', 'Score')
