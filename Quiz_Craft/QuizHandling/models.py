@@ -1,13 +1,11 @@
-# from typing_extensions import Required
 from django.db import models
 from django.contrib.auth.models import User
 
 class Quiz(models.Model):
     Author = models.ForeignKey(User, on_delete=models.CASCADE)
     QuizTitle = models.CharField(max_length=100)
-    Time = models.DurationField(help_text="Duration of the Quizin format HH:MM:SS")
+    Time = models.IntegerField(help_text="Duration of the Quiz in minutes")
     Score = models.IntegerField(help_text="Total score of the Quiz")
-    # created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.QuizTitle}"
@@ -33,6 +31,7 @@ class Student(models.Model):
     student_name = models.CharField(max_length=100)
     student_email = models.EmailField(max_length=256)
     student_score = models.IntegerField()
+    done_test = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.quiz.QuizTitle}-{self.student_name}"

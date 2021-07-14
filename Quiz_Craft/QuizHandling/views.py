@@ -5,11 +5,11 @@ from django.shortcuts import redirect, render, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import JsonResponse
-from django.core import serializers
+from django.views.decorators.cache import cache_control
 
 from hashids import Hashids
 
-from .models import Questions, Quiz
+from .models import Questions, Quiz, Student
 from .forms import QuizStarterForm, QuestionCreationForm, StudentForm
 
 def Home(request):
@@ -71,7 +71,7 @@ def QuizTestView(request, user_id, quiz_id):
             student_info.student_score = 0
             student_info.quiz = quiz
             student_info.save()
-            return redirect('starttest', quiz_id)
+            return redirect('starttest', quiz_id, hashids.encode(student_info.id))
     else:
         form = StudentForm()
 
@@ -84,25 +84,45 @@ def QuizTestView(request, user_id, quiz_id):
 
     return render(request, 'quiz_test_1.html', context)
 
-def StartTestView(request, quiz_id):
+def StartTestView(request, quiz_id, student_id):
     hashids = Hashids()
     decode_quiz_id = hashids.decode(quiz_id)
+    decode_student_id = hashids.decode(student_id)
     quiz = Quiz.objects.get(pk=decode_quiz_id[0])
+    student = Student.objects.get(pk=decode_student_id[0])
 
-    return render(request, 'quiz_test_2.html', {'quiz': quiz})
+    return render(request, 'quiz_test_2.html', {'quiz': quiz, 'student': student})
 
-def StartTestDataView(request, quiz_id):
+def StartTestDataView(request, quiz_id, student_id):
     hashids = Hashids()
     decode_quiz_id = hashids.decode(quiz_id)
     quiz = Quiz.objects.get(pk=decode_quiz_id[0])
 
     Question = []
     for q in quiz.getQuestions():
-        Question.append(q)
-
-    tmpJson = serializers.serialize("json", Question)
-    tmpObj = json.loads(tmpJson)
+        Que = {}
+        Que['statement'] = q.Statement
+        Que['Correct'] = q.CorrectOption
+        Que['Other1'] = q.OtherOption1
+        Que['Other2'] = q.OtherOption2
+        Que['Other3'] = q.OtherOption3
+        Que['Que_id'] = q.id
+        Que['score'] = q.Score
+        Question.append(Que)
 
     return JsonResponse({
-        'question': json.dumps(tmpObj),
+        'question': Question,
+        'time': quiz.Time,
+        'student_id': student_id
     })
+
+def CompleteTestView(request, student_id, score):
+    hashids = Hashids()
+    decode_score = hashids.decode(score)
+    decode_student_id = hashids.decode(student_id)
+    student = Student.objects.get(pk=decode_student_id[0])
+    student.student_score = decode_score[0]
+    student.done_test = True
+    student.save()
+
+    return render(request, 'complete-test.html')

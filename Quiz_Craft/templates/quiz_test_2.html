@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="{% static '/JS/start_test.js' %}"></script>
     <title>Start Quiz</title> 
 </head>
 <body style="background-color: #282c34;">
@@ -24,7 +23,13 @@
         </div>
     </nav>
     <!-- navbar end -->
-
-    <div id="body"></div>
+    {% if student.done_test %}
+        <h1>BSDK KITNI BAAR DEGA</h1>
+    {% else %}
+        <div id="timer"></div>
+        <div id="quiz-body"></div>
+        <script src="{% static '/JS/start_test.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/hashids/2.2.8/hashids.min.js" integrity="sha512-NynLz/osGj7f9xoNpwgyE4In68ylN8GKsWCmXGfWzl/jAtTz/NestmRBt3lZOdkagHkz7jPARbfrbF+DgmaUtQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    {% endif %}
 </body>
 </html>
